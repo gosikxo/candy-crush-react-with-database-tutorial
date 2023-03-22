@@ -22,9 +22,29 @@ const App = () => {
     setCurrentColorArrangement(randomColorArrangement)
   }
 
+  const checkForColumnOfThree = () => {
+    for (let i = 0; i < 47; i++) {
+      const columnOfThree = [i, i + width, i + width * 2]
+      const decidedColor = currentColorArrangement[i]
+
+      if (columnOfThree.every(square => currentColorArrangement[square] === decidedColor)) {
+        columnOfThree.forEach(square => currentColorArrangement[square] = '')
+      }
+    }
+  }
+
   useEffect(() => {
     createBoard()
   }, [])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      checkForColumnOfThree()
+      setCurrentColorArrangement([...currentColorArrangement])
+    }, 1000)
+    return () => clearInterval(timer)
+
+  }, [checkForColumnOfThree, currentColorArrangement])
 
   return (
     <div className="app">
@@ -33,6 +53,7 @@ const App = () => {
           <img
             key={index}
             style={{ backgroundColor: candyColor }}
+            alt={candyColor}
           />
         ))}
       </div>
