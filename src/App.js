@@ -73,6 +73,16 @@ const App = () => {
     }
   }
 
+  const moveIntoSquareBelow = () => {
+    for (let i = 0; i < 64 - width; i++) {
+
+      if ((currentColorArrangement[i + width]) === '') {
+        currentColorArrangement[i + width] = currentColorArrangement[i]
+        currentColorArrangement[i] = ''
+      }
+    }
+  }
+
 
   useEffect(() => {
     createBoard()
@@ -84,11 +94,12 @@ const App = () => {
       checkForColumnOfThree()
       checkForRowOfFour()
       checkForRowOfThree()
+      moveIntoSquareBelow()
       setCurrentColorArrangement([...currentColorArrangement])
     }, 1000)
     return () => clearInterval(timer)
 
-  }, [checkForColumnOfFour, checkForColumnOfThree, checkForRowOfFour, checkForRowOfThree, currentColorArrangement])
+  }, [checkForColumnOfFour, checkForColumnOfThree, checkForRowOfFour, checkForRowOfThree, moveIntoSquareBelow, currentColorArrangement])
 
   return (
     <div className="app">
