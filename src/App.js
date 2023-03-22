@@ -21,6 +21,7 @@ const App = () => {
   const [currentColorArrangement, setCurrentColorArrangement] = useState([])
   const [squareBeingDragged, setSquareBeingDragged] = useState('')
   const [squareBeingReplaced, setSquareBeingReplaced] = useState('')
+  const [scoreDisplay, setScoreDisplay] = useState(0)
 
   const createBoard = () => {
     const randomColorArrangement = []
@@ -37,6 +38,7 @@ const App = () => {
       const decidedColor = currentColorArrangement[i]
 
       if (columnOfFour.every(square => currentColorArrangement[square] === decidedColor)) {
+
         columnOfFour.forEach(square => currentColorArrangement[square] = blank)
         return true
       }
@@ -145,7 +147,6 @@ const App = () => {
     }
 
   }
-
 
   useEffect(() => {
     createBoard()
