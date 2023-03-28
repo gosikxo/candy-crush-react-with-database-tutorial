@@ -11,6 +11,12 @@ export const ScoreBoard = ({ score }) => {
 
   console.log(data)
 
+  const saveData = async () => {
+    axios.post('http://localhost:8000/addscore')
+      .then((response) => { console.log(response) })
+      .catch(err => console.log(err))
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -18,6 +24,7 @@ export const ScoreBoard = ({ score }) => {
   return (
     <div className='score-board'>
       <h2>Score: {score}</h2>
+      <button onClick={saveData}>save score</button>
     </div>
   )
 }
